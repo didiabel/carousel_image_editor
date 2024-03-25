@@ -1,15 +1,12 @@
 name: carousel_image_editor
 description: "Carousel Image Editor Plugin with filters, drawing, text and emoji like stories."
-version: 0.0.3
+version: 0.0.6
 homepage: https://github.com/didiabel/carousel_image_editor
 repository: https://github.com/didiabel/carousel_image_editor
-platforms:
-  android:
-  ios:
 
 environment:
   sdk: ">=3.3.1 <4.0.0"
-  flutter: ">=1.17.0"
+  flutter: ">=1.20.0"
 
 dependencies:
   colorfilter_generator: ^0.0.8
@@ -20,7 +17,7 @@ dependencies:
   flutter_image_compress: ^2.2.0
   hand_signature: ^3.0.2
   image: ^4.1.7
-  permission_handler: ^11.3.0
+  permission_handler: ^10.4.5
   reorderables: ^0.6.0
   screenshot: ^2.3.0
 
@@ -31,3 +28,9 @@ dev_dependencies:
 
 flutter:
   uses-material-design: true
+  plugin:
+    platforms:
+      android:
+        default_package: carousel_image_editor_android
+      ios:
+        default_package: carousel_image_editor_ios

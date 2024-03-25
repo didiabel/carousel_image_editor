@@ -48,7 +48,7 @@ class _ImageEditorExampleState extends State<ImageEditorExample> {
                 var editedImage = await Navigator.push(
                   context,
                   MaterialPageRoute(
-                    builder: (context) => ImageEditor(
+                    builder: (context) => ImagesEditor(
                       images: [imageData!, imageData!],
                     ),
                   ),

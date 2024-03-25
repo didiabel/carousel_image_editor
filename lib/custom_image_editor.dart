@@ -35,7 +35,7 @@ List<ImageItem> images = [];
 String i18n(String sourceString) =>
     _translations[sourceString.toLowerCase()] ?? sourceString;
 
-/// Single endpoint for MultiImageEditor & SingleImageEditor
+/// Single endpoint for MultiImageEditor & ImagesEditor
 class ImageEditor extends StatelessWidget {
   final List<Uint8List> images;
   final String? savePath;
@@ -76,7 +76,7 @@ class ImageEditor extends StatelessWidget {
           'No image to work with, provide an image or allow the image picker.');
     }
 
-    return SingleImageEditor(
+    return ImagesEditor(
       images: images,
       savePath: savePath,
       imagePickerOption: imagePickerOption,
@@ -124,7 +124,7 @@ class ImageEditor extends StatelessWidget {
 }
 
 /// Image editor with all option available
-class SingleImageEditor extends StatefulWidget {
+class ImagesEditor extends StatefulWidget {
   final List<Uint8List> images;
   final String? savePath;
   final int outputFormat;
@@ -139,7 +139,7 @@ class SingleImageEditor extends StatefulWidget {
   final o.RotateOption? rotateOption;
   final o.TextOption? textOption;
 
-  const SingleImageEditor({
+  const ImagesEditor({
     super.key,
     this.images = const [],
     this.savePath,
@@ -156,10 +156,10 @@ class SingleImageEditor extends StatefulWidget {
   });
 
   @override
-  SingleImageEditorState createState() => SingleImageEditorState();
+  ImagesEditorState createState() => ImagesEditorState();
 }
 
-class SingleImageEditorState extends State<SingleImageEditor> {
+class ImagesEditorState extends State<ImagesEditor> {
   PermissionStatus galleryPermission = PermissionStatus.permanentlyDenied,
       cameraPermission = PermissionStatus.permanentlyDenied;
 
