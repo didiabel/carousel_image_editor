@@ -28,12 +28,26 @@ class ImageItem {
       bytes = imageFile;
       var decodedImage = await decodeImageFromList(bytes);
 
-      // image was decoded
-      print(['height', viewportSize.height, decodedImage.height]);
-      print(['width', viewportSize.width, decodedImage.width]);
+      double maxWidth = viewportSize.width;
+      double maxHeight = 400;
 
-      height = decodedImage.height;
-      width = decodedImage.width;
+      double aspectRatio = decodedImage.width / decodedImage.height;
+
+      if (decodedImage.width > maxWidth || decodedImage.height > maxHeight) {
+        if (decodedImage.height > maxHeight) {
+          maxHeight = decodedImage.height.toDouble() - maxWidth;
+        }
+        if (aspectRatio > 1) {
+          width = maxWidth.toInt();
+          height = width ~/ aspectRatio;
+        } else {
+          height = maxHeight.toInt();
+          width = (height * aspectRatio).toInt();
+        }
+      } else {
+        width = decodedImage.width;
+        height = decodedImage.height;
+      }
 
       loader.complete(decodedImage);
     }

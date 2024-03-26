@@ -36,7 +36,7 @@ String i18n(String sourceString) =>
     _translations[sourceString.toLowerCase()] ?? sourceString;
 
 /// Single endpoint for MultiImageEditor & ImagesEditor
-class ImageEditor extends StatelessWidget {
+class DidiImageEditor extends StatelessWidget {
   final List<Uint8List> images;
   final String? savePath;
   final int outputFormat;
@@ -52,7 +52,7 @@ class ImageEditor extends StatelessWidget {
   final o.RotateOption? rotateOption;
   final o.TextOption? textOption;
 
-  const ImageEditor({
+  const DidiImageEditor({
     super.key,
     this.images = const [],
     this.savePath,
@@ -407,7 +407,7 @@ class ImagesEditorState extends State<ImagesEditor> {
       return const Center(child: CircularProgressIndicator.adaptive());
     }
     return Theme(
-      data: ImageEditor.theme,
+      data: DidiImageEditor.theme,
       child: Scaffold(
         // key: scaffoldGlobalKey,
         body: Stack(children: [
@@ -431,9 +431,8 @@ class ImagesEditorState extends State<ImagesEditor> {
                   },
                   itemCount: images.length,
                   itemBuilder: (context, index) {
-                    return SizedBox(
-                      height: images[index].height / pixelRatio,
-                      width: images[index].width / pixelRatio,
+                    return Container(
+                      color: Colors.transparent,
                       child: Screenshot(
                         controller: screenshotControllers[index]!,
                         child: RotatedBox(
@@ -1016,7 +1015,7 @@ class ImagesEditorState extends State<ImagesEditor> {
   }
 }
 
-/// Button used in bottomNavigationBar in ImageEditor
+/// Button used in bottomNavigationBar in DidiImageEditor
 class BottomButton extends StatelessWidget {
   final VoidCallback? onTap, onLongPress;
   final IconData icon;
@@ -1107,7 +1106,7 @@ class _ImageCropperState extends State<ImageCropper> {
     }
 
     return Theme(
-      data: ImageEditor.theme,
+      data: DidiImageEditor.theme,
       child: Scaffold(
         appBar: AppBar(
           actions: [
@@ -1348,7 +1347,7 @@ class _ImageFiltersState extends State<ImageFilters> {
   @override
   Widget build(BuildContext context) {
     return Theme(
-      data: ImageEditor.theme,
+      data: DidiImageEditor.theme,
       child: Scaffold(
         appBar: AppBar(
           actions: [
@@ -1547,7 +1546,7 @@ class _FilterAppliedImageState extends State<FilterAppliedImage> {
 
       // option.addOption(image_editor.ColorOption(matrix: filter.matrix));
 
-      // image_editor.ImageEditor.editImage(
+      // image_editor.DidiImageEditor.editImage(
       //   image: image,
       //   imageEditorOption: option,
       // ).then((result) {
@@ -1642,7 +1641,7 @@ class _ImageEditorDrawingState extends State<ImageEditorDrawing> {
   @override
   Widget build(BuildContext context) {
     return Theme(
-      data: ImageEditor.theme,
+      data: DidiImageEditor.theme,
       child: Scaffold(
         appBar: AppBar(
           automaticallyImplyLeading: false,
