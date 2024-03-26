@@ -9,5 +9,3 @@ Refactored from image_editor_plus package to be a carousel
 ![alt text](https://ibb.co/2j38HWM)
 
 ![alt text](https://ibb.co/pLDgZxg)
-
-

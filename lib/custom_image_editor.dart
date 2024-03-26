@@ -265,35 +265,55 @@ class ImagesEditorState extends State<ImagesEditor> {
 
                 if ((widget.outputFormat & 0x1) == o.OutputFormat.json &&
                     imageLayers != null) {
-                  var json = imageLayers.map((e) => e.toJson()).toList();
+                  List<List<Map<dynamic, dynamic>>> jsonList = [];
+                  for (var i = 0; i < images.length; i++) {
+                    var json = layers[i]!.map((e) => e.toJson()).toList();
+                    jsonList.add(json);
+                  }
 
                   if ((widget.outputFormat & 0xFE) > 0) {
-                    var editedImageBytes = await getMergedImage(
-                      format: widget.outputFormat & 0xFE,
-                      index: currentIndex,
-                    );
+                    List<Uint8List> editedImageBytesList = [];
 
-                    json.insert(0, {
-                      'type': 'MergedLayer',
-                      'image': editedImageBytes,
-                    });
+                    for (var i = 0; i < images.length; i++) {
+                      var editedImageBytes = await getMergedImage(
+                        format: widget.outputFormat & 0xFE,
+                        index: currentIndex,
+                      );
+                      if (editedImageBytes != null) {
+                        editedImageBytesList.add(editedImageBytes);
+                      }
+                    }
+
+                    jsonList.insert(0, [
+                      {
+                        'type': 'MergedLayer',
+                        'image': editedImageBytesList,
+                      }
+                    ]);
                   }
 
                   loadingScreen.hide();
 
                   if (mounted) {
-                    Navigator.pop(context, json);
+                    Navigator.pop(context, jsonList);
                   }
                 } else {
-                  var editedImageBytes = await getMergedImage(
-                    format: widget.outputFormat & 0xFE,
-                    index: currentIndex,
-                  );
+                  List<Uint8List> editedImageBytesList = [];
+
+                  for (var i = 0; i < images.length; i++) {
+                    var editedImageBytes = await getMergedImage(
+                      format: widget.outputFormat & 0xFE,
+                      index: i,
+                    );
+                    if (editedImageBytes != null) {
+                      editedImageBytesList.add(editedImageBytes);
+                    }
+                  }
 
                   loadingScreen.hide();
 
                   if (mounted) {
-                    Navigator.pop(context, editedImageBytes);
+                    Navigator.pop(context, editedImageBytesList);
                   }
                 }
               },
