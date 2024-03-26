@@ -40,6 +40,7 @@ class ImageEditor extends StatelessWidget {
   final List<Uint8List> images;
   final String? savePath;
   final int outputFormat;
+  final IconData doneIcon;
 
   final o.ImagePickerOption imagePickerOption;
   final o.CropOption? cropOption;
@@ -57,6 +58,7 @@ class ImageEditor extends StatelessWidget {
     this.savePath,
     this.imagePickerOption = const o.ImagePickerOption(),
     this.outputFormat = o.OutputFormat.jpeg,
+    this.doneIcon = Icons.check,
     this.cropOption = const o.CropOption(),
     this.blurOption = const o.BlurOption(),
     this.brushOption = const o.BrushOption(),
@@ -128,7 +130,7 @@ class ImagesEditor extends StatefulWidget {
   final List<Uint8List> images;
   final String? savePath;
   final int outputFormat;
-
+  final IconData doneIcon;
   final o.ImagePickerOption imagePickerOption;
   final o.CropOption? cropOption;
   final o.BlurOption? blurOption;
@@ -145,6 +147,7 @@ class ImagesEditor extends StatefulWidget {
     this.savePath,
     this.imagePickerOption = const o.ImagePickerOption(),
     this.outputFormat = o.OutputFormat.jpeg,
+    this.doneIcon = Icons.check,
     this.cropOption = const o.CropOption(),
     this.blurOption = const o.BlurOption(),
     this.brushOption = const o.BrushOption(),
@@ -252,7 +255,7 @@ class ImagesEditorState extends State<ImagesEditor> {
             ),
             IconButton(
               padding: const EdgeInsets.symmetric(horizontal: 8),
-              icon: const Icon(Icons.check),
+              icon: Icon(widget.doneIcon),
               onPressed: () async {
                 resetTransformation();
                 setState(() {});
