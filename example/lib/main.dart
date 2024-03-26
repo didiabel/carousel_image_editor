@@ -16,7 +16,7 @@ class ImageEditorExample extends StatefulWidget {
 }
 
 class _ImageEditorExampleState extends State<ImageEditorExample> {
-  Uint8List? imageData;
+  List<Uint8List> imageListData = [];
 
   @override
   void initState() {
@@ -26,7 +26,8 @@ class _ImageEditorExampleState extends State<ImageEditorExample> {
 
   void loadAsset(String name) async {
     var data = await rootBundle.load('assets/$name');
-    setState(() => imageData = data.buffer.asUint8List());
+    setState(() =>
+        imageListData = [data.buffer.asUint8List(), data.buffer.asUint8List()]);
   }
 
   @override
@@ -39,26 +40,26 @@ class _ImageEditorExampleState extends State<ImageEditorExample> {
       body: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          if (imageData != null) Image.memory(imageData!),
+          if (imageListData.isNotEmpty) Image.memory(imageListData[0]),
           const SizedBox(height: 16),
           ElevatedButton(
             child: const Text("Multiple image editor"),
             onPressed: () async {
-              if (imageData != null) {
-                var editedImage = await Navigator.push(
+              if (imageListData.isNotEmpty) {
+                final List<Uint8List> editedImage = await Navigator.push(
                   context,
                   MaterialPageRoute(
                     builder: (context) => ImagesEditor(
-                      images: [imageData!, imageData!],
+                      images: [imageListData[0], imageListData[0]],
                     ),
                   ),
                 );
 
                 // replace with edited image
-                if (editedImage != null) {
-                  imageData = editedImage;
-                  setState(() {});
-                }
+
+                setState(() {
+                  imageListData = editedImage;
+                });
               }
             },
           ),
