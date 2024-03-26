@@ -83,6 +83,7 @@ class ImageEditor extends StatelessWidget {
       savePath: savePath,
       imagePickerOption: imagePickerOption,
       outputFormat: outputFormat,
+      doneIcon: doneIcon,
       cropOption: cropOption,
       blurOption: blurOption,
       brushOption: brushOption,
