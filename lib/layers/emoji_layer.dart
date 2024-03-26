@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:carousel_image_editor/custom_image_editor.dart';
 import 'package:carousel_image_editor/data/layer.dart';
 import 'package:carousel_image_editor/modules/emoji_layer_overlay.dart';
-import 'package:carousel_image_editor/modules/emoji_layer_overlay.dart';
 
 /// Emoji layer
 class EmojiLayer extends StatefulWidget {

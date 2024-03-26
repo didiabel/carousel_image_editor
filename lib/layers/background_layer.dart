@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:carousel_image_editor/data/layer.dart';
-import 'package:carousel_image_editor/data/layer.dart';
 
 /// Main layer
 class BackgroundLayer extends StatefulWidget {
@@ -25,7 +24,6 @@ class _BackgroundLayerState extends State<BackgroundLayer> {
     return Container(
       width: widget.layerData.image.width.toDouble(),
       height: widget.layerData.image.height.toDouble(),
-      color: Colors.red,
       padding: EdgeInsets.zero,
       child: Image.memory(
         widget.layerData.image.bytes,

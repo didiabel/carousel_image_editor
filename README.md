@@ -2,10 +2,10 @@ Carousel Image Editor Plugin with simple, easy support for image editing using P
 
 Refactored from image_editor_plus package to be a carousel
 
-![alt text](https://ibb.co/FnMT7Bv)
+![alt text](https://i.ibb.co/HXs8grv/Simulator-Screenshot-i-Phone-15-Pro-Max-2024-03-26-at-10-27-40.png)
 
-![alt text](https://ibb.co/DbygnQw)
+![alt text](https://i.ibb.co/RSm4WcQ/Simulator-Screenshot-i-Phone-15-Pro-Max-2024-03-26-at-10-27-46.png)
 
-![alt text](https://ibb.co/2j38HWM)
+![alt text](https://i.ibb.co/wKhJjBQ/Simulator-Screenshot-i-Phone-15-Pro-Max-2024-03-26-at-10-28-26.png)
 
-![alt text](https://ibb.co/pLDgZxg)
+![alt text](https://i.ibb.co/HHv0YV0/Simulator-Screenshot-i-Phone-15-Pro-Max-2024-03-26-at-10-28-51.png)
