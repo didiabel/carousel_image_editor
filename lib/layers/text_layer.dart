@@ -74,24 +74,21 @@ class _TextViewState extends State<TextLayer> {
                 setState(() {});
               }
             : null,
-        child: Transform.rotate(
-          angle: widget.layerData.rotation,
+        child: Container(
+          padding: const EdgeInsets.all(64),
           child: Container(
-            padding: const EdgeInsets.all(64),
-            child: Container(
-              padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
-              decoration: BoxDecoration(
-                color: widget.layerData.background
-                    .withOpacity(widget.layerData.backgroundOpacity),
-                borderRadius: BorderRadius.circular(8),
-              ),
-              child: Text(
-                widget.layerData.text.toString(),
-                textAlign: widget.layerData.align,
-                style: TextStyle(
-                  color: widget.layerData.color,
-                  fontSize: widget.layerData.size,
-                ),
+            padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
+            decoration: BoxDecoration(
+              color: widget.layerData.background
+                  .withOpacity(widget.layerData.backgroundOpacity),
+              borderRadius: BorderRadius.circular(8),
+            ),
+            child: Text(
+              widget.layerData.text.toString(),
+              textAlign: widget.layerData.align,
+              style: TextStyle(
+                color: widget.layerData.color,
+                fontSize: widget.layerData.size,
               ),
             ),
           ),

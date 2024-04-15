@@ -72,15 +72,12 @@ class _EmojiLayerState extends State<EmojiLayer> {
                 setState(() {});
               }
             : null,
-        child: Transform.rotate(
-          angle: widget.layerData.rotation,
-          child: Container(
-            padding: const EdgeInsets.all(64),
-            child: Text(
-              widget.layerData.text.toString(),
-              style: TextStyle(
-                fontSize: widget.layerData.size,
-              ),
+        child: Container(
+          padding: const EdgeInsets.all(64),
+          child: Text(
+            widget.layerData.text.toString(),
+            style: TextStyle(
+              fontSize: widget.layerData.size,
             ),
           ),
         ),

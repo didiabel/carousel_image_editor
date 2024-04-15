@@ -22,12 +22,17 @@ class _BackgroundLayerState extends State<BackgroundLayer> {
   @override
   Widget build(BuildContext context) {
     return Container(
-      width: widget.layerData.image.width.toDouble(),
+      color: Colors.blue,
+      width: MediaQuery.of(context).size.width,
       height: widget.layerData.image.height.toDouble(),
       padding: EdgeInsets.zero,
-      child: Image.memory(
-        widget.layerData.image.bytes,
-        fit: BoxFit.cover,
+      child: FittedBox(
+        fit: BoxFit.fitWidth,
+        child: Image.memory(
+          widget.layerData.image.bytes,
+          width: MediaQuery.of(context).size.width,
+          fit: BoxFit.contain,
+        ),
       ),
     );
   }

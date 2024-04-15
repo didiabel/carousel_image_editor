@@ -74,37 +74,31 @@ class _TextViewState extends State<LinkLayer> {
                 setState(() {});
               }
             : null,
-        child: Transform.rotate(
-          angle: widget.layerData.rotation,
+        child: Container(
+          padding: const EdgeInsets.all(64),
           child: Container(
-            padding: const EdgeInsets.all(64),
-            child: Container(
-                padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
-                decoration: BoxDecoration(
-                  color: widget.layerData.background
-                      .withOpacity(widget.layerData.backgroundOpacity),
-                  borderRadius: BorderRadius.circular(8),
+              padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
+              decoration: BoxDecoration(
+                color: widget.layerData.background
+                    .withOpacity(widget.layerData.backgroundOpacity),
+                borderRadius: BorderRadius.circular(8),
+              ),
+              child: Row(children: [
+                Icon(
+                  Icons.link,
+                  color: widget.layerData.color,
+                  size: widget.layerData.size,
                 ),
-                child: Row(children: [
-                  Transform.rotate(
-                    angle: -0.4,
-                    child: Icon(
-                      Icons.link,
-                      color: widget.layerData.color,
-                      size: widget.layerData.size,
-                    ),
+                const SizedBox(width: 8),
+                Text(
+                  widget.layerData.text.toString(),
+                  textAlign: widget.layerData.align,
+                  style: TextStyle(
+                    color: widget.layerData.color,
+                    fontSize: widget.layerData.size,
                   ),
-                  const SizedBox(width: 8),
-                  Text(
-                    widget.layerData.text.toString(),
-                    textAlign: widget.layerData.align,
-                    style: TextStyle(
-                      color: widget.layerData.color,
-                      fontSize: widget.layerData.size,
-                    ),
-                  ),
-                ])),
-          ),
+                ),
+              ])),
         ),
       ),
     );

@@ -2,6 +2,7 @@ import 'dart:async';
 import 'dart:typed_data';
 import 'package:flutter/material.dart';
 import 'package:carousel_image_editor/custom_image_editor.dart';
+import 'package:flutter_image_compress/flutter_image_compress.dart';
 
 class ImageItem {
   int width = 300;
@@ -14,7 +15,6 @@ class ImageItem {
       load(img);
     }
   }
-
   Future<ImageItem> load(dynamic imageFile) async {
     loader = Completer();
 
@@ -53,6 +53,23 @@ class ImageItem {
     }
 
     return this;
+  }
+
+  void rotateImage(int rotationVal) async {
+    try {
+      final fixedImageBytes = await FlutterImageCompress.compressWithList(
+        bytes,
+        rotate: rotationVal,
+        quality: 100,
+        keepExif: false,
+        autoCorrectionAngle: true,
+        format: CompressFormat.jpeg,
+      );
+
+      bytes = fixedImageBytes;
+    } catch (e) {
+      debugPrint("failed to rotate: ${e.toString()}");
+    }
   }
 
   static ImageItem fromJson(Map json) {

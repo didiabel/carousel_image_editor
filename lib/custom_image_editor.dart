@@ -1,5 +1,4 @@
 import 'dart:async';
-import 'dart:developer';
 import 'dart:math' as math;
 
 import 'package:carousel_image_editor/data/layer.dart';
@@ -191,6 +190,7 @@ class ImagesEditorState extends State<ImagesEditor> {
   List<Widget> filterActions(int index) {
     final imageLayers = layers[index];
     final imageUndoLayers = undoLayers[index];
+    final imageRemovedLayers = removedLayers[index];
     return [
       const BackButton(),
       SizedBox(
@@ -202,15 +202,14 @@ class ImagesEditorState extends State<ImagesEditor> {
             IconButton(
               padding: const EdgeInsets.symmetric(horizontal: 8),
               icon: Icon(Icons.undo,
-                  color: layers.length > 1 || removedLayers.isNotEmpty
+                  color: layers.length > 1 ||
+                          (imageRemovedLayers?.isNotEmpty ?? true)
                       ? Colors.white
                       : Colors.grey),
               onPressed: () {
-                if (removedLayers[currentIndex] != null &&
-                    removedLayers.isNotEmpty) {
-                  addLayer(removedLayers[currentIndex]!.removeLast());
-                  layers[currentIndex]
-                      ?.add(removedLayers[currentIndex]!.removeLast());
+                if (imageRemovedLayers != null && removedLayers.isNotEmpty) {
+                  addLayer(imageRemovedLayers.removeLast());
+                  layers[currentIndex]?.add(imageRemovedLayers.removeLast());
                   setState(() {});
                   return;
                 }
@@ -219,13 +218,12 @@ class ImagesEditorState extends State<ImagesEditor> {
                   return;
                 }
 
-                if (undoLayers[currentIndex] != null) {
-                  undoLayers[currentIndex]!
-                      .add(layers[currentIndex]!.removeLast());
+                if (imageUndoLayers != null && imageLayers != null) {
+                  imageUndoLayers.add(imageLayers.removeLast());
                 } else {
-                  if (layers[currentIndex] != null) {
+                  if (imageLayers != null) {
                     undoLayers.addAll({
-                      currentIndex: [layers[currentIndex]!.removeLast()]
+                      currentIndex: [imageLayers.removeLast()]
                     });
                   } else {
                     undoLayers.addAll({currentIndex: []});
@@ -238,7 +236,9 @@ class ImagesEditorState extends State<ImagesEditor> {
             IconButton(
               padding: const EdgeInsets.symmetric(horizontal: 8),
               icon: Icon(Icons.redo,
-                  color: undoLayers.isNotEmpty ? Colors.white : Colors.grey),
+                  color: imageUndoLayers?.isNotEmpty ?? true
+                      ? Colors.white
+                      : Colors.grey),
               onPressed: () {
                 if (imageUndoLayers == null || imageUndoLayers.isEmpty) {
                   return;
@@ -336,7 +336,6 @@ class ImagesEditorState extends State<ImagesEditor> {
   }
 
   double flipValue = 0;
-  int rotateValue = 0;
 
   double x = 0;
   double y = 0;
@@ -409,7 +408,6 @@ class ImagesEditorState extends State<ImagesEditor> {
     return Theme(
       data: ImageEditor.theme,
       child: Scaffold(
-        // key: scaffoldGlobalKey,
         body: Stack(children: [
           GestureDetector(
             onScaleUpdate: (details) {
@@ -433,38 +431,15 @@ class ImagesEditorState extends State<ImagesEditor> {
                   itemBuilder: (context, index) {
                     return Container(
                       color: Colors.transparent,
-                      child: Screenshot(
-                        controller: screenshotControllers[index]!,
-                        child: RotatedBox(
-                          quarterTurns: rotateValue,
-                          child: Transform(
-                            transform: Matrix4(
-                              1,
-                              0,
-                              0,
-                              0,
-                              0,
-                              1,
-                              0,
-                              0,
-                              0,
-                              0,
-                              1,
-                              0,
-                              x,
-                              y,
-                              0,
-                              1 / scaleFactor,
-                            )..rotateY(flipValue),
-                            alignment: FractionalOffset.center,
-                            child: LayersViewer(
-                              layers: layers[index] ?? [],
-                              onUpdate: () {
-                                setState(() {});
-                              },
-                              editable: true,
-                            ),
-                          ),
+                      child: Container(
+                        color: Colors.red,
+                        child: LayersViewer(
+                          index: index,
+                          layers: layers[index] ?? [],
+                          onUpdate: () {
+                            setState(() {});
+                          },
+                          editable: true,
                         ),
                       ),
                     );
@@ -601,7 +576,6 @@ class ImagesEditorState extends State<ImagesEditor> {
                         }
 
                         flipValue = 0;
-                        rotateValue = 0;
 
                         await images[currentIndex].load(croppedImage);
                         setState(() {});
@@ -723,29 +697,11 @@ class ImagesEditorState extends State<ImagesEditor> {
                     ),
                   if (widget.rotateOption != null)
                     BottomButton(
-                      icon: Icons.rotate_left,
-                      text: i18n('Rotate left'),
+                      icon: Icons.rotate_90_degrees_cw,
+                      text: i18n('Rotate image'),
                       onTap: () {
-                        var t = images[currentIndex].width;
-                        images[currentIndex].width =
-                            images[currentIndex].height;
-                        images[currentIndex].height = t;
+                        images[currentIndex].rotateImage(90);
 
-                        rotateValue--;
-                        setState(() {});
-                      },
-                    ),
-                  if (widget.rotateOption != null)
-                    BottomButton(
-                      icon: Icons.rotate_right,
-                      text: i18n('Rotate right'),
-                      onTap: () {
-                        var t = images[currentIndex].width;
-                        images[currentIndex].width =
-                            images[currentIndex].height;
-                        images[currentIndex].height = t;
-
-                        rotateValue++;
                         setState(() {});
                       },
                     ),
@@ -995,7 +951,6 @@ class ImagesEditorState extends State<ImagesEditor> {
   // final picker = ImagePicker();
 
   Future<void> loadImages(List<Uint8List> imageFiles) async {
-    inspect('holasdsd');
     images.clear();
     for (var i = 0; i < imageFiles.length; i++) {
       ImageItem image = ImageItem();

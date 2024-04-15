@@ -1,3 +1,4 @@
+import 'package:carousel_image_editor/custom_image_editor.dart';
 import 'package:carousel_image_editor/data/layer.dart';
 import 'package:carousel_image_editor/layers/background_blur_layer.dart';
 import 'package:carousel_image_editor/layers/background_layer.dart';
@@ -6,16 +7,19 @@ import 'package:carousel_image_editor/layers/image_layer.dart';
 import 'package:carousel_image_editor/layers/link_layer.dart';
 import 'package:carousel_image_editor/layers/text_layer.dart';
 import 'package:flutter/material.dart';
+import 'package:screenshot/screenshot.dart';
 
 /// View stacked layers (unbounded height, width)
 class LayersViewer extends StatelessWidget {
   final List<Layer> layers;
+  final int index;
   final Function()? onUpdate;
   final bool editable;
 
   const LayersViewer({
     super.key,
     required this.layers,
+    required this.index,
     required this.editable,
     this.onUpdate,
   });
@@ -27,10 +31,13 @@ class LayersViewer extends StatelessWidget {
       children: layers.map((layerItem) {
         // Background layer
         if (layerItem is BackgroundLayerData) {
-          return BackgroundLayer(
-            layerData: layerItem,
-            onUpdate: onUpdate,
-            editable: editable,
+          return Screenshot(
+            controller: screenshotControllers[index]!,
+            child: BackgroundLayer(
+              onUpdate: onUpdate,
+              layerData: layerItem,
+              editable: editable,
+            ),
           );
         }
 
