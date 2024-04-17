@@ -432,7 +432,6 @@ class ImagesEditorState extends State<ImagesEditor> {
                     return Container(
                       color: Colors.transparent,
                       child: Container(
-                        color: Colors.red,
                         child: LayersViewer(
                           index: index,
                           layers: layers[index] ?? [],
@@ -699,8 +698,8 @@ class ImagesEditorState extends State<ImagesEditor> {
                     BottomButton(
                       icon: Icons.rotate_90_degrees_cw,
                       text: i18n('Rotate image'),
-                      onTap: () {
-                        images[currentIndex].rotateImage(90);
+                      onTap: () async {
+                        await images[currentIndex].rotateImage(90);
 
                         setState(() {});
                       },

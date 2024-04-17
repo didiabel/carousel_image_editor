@@ -55,7 +55,7 @@ class ImageItem {
     return this;
   }
 
-  void rotateImage(int rotationVal) async {
+  Future rotateImage(int rotationVal) async {
     try {
       final fixedImageBytes = await FlutterImageCompress.compressWithList(
         bytes,
@@ -65,6 +65,11 @@ class ImageItem {
         autoCorrectionAngle: true,
         format: CompressFormat.jpeg,
       );
+
+      // invert height and width
+      int oldHeight = height;
+      height = width;
+      width = oldHeight;
 
       bytes = fixedImageBytes;
     } catch (e) {
