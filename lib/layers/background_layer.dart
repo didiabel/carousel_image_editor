@@ -22,7 +22,6 @@ class _BackgroundLayerState extends State<BackgroundLayer> {
   @override
   Widget build(BuildContext context) {
     return Container(
-      color: Colors.blue,
       width: MediaQuery.of(context).size.width,
       height: widget.layerData.image.height.toDouble(),
       padding: EdgeInsets.zero,
