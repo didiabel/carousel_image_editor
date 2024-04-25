@@ -1055,10 +1055,6 @@ class _ImageCropperState extends State<ImageCropper> {
 
   @override
   Widget build(BuildContext context) {
-    if (_controller.currentState != null) {
-      // _controller.currentState?.
-    }
-
     return Theme(
       data: ImageEditor.theme,
       child: Scaffold(
@@ -1104,59 +1100,6 @@ class _ImageCropperState extends State<ImageCropper> {
             height: 80,
             child: Column(
               children: [
-                // Container(
-                //   height: 48,
-                //   decoration: const BoxDecoration(
-                //     boxShadow: [
-                //       BoxShadow(
-                //         color: black,
-                //         blurRadius: 10,
-                //       ),
-                //     ],
-                //   ),
-                //   child: ListView(
-                //     scrollDirection: Axis.horizontal,
-                //     children: <Widget>[
-                //       IconButton(
-                //         icon: Icon(
-                //           Icons.portrait,
-                //           color: isLandscape ? gray : white,
-                //         ).paddingSymmetric(horizontal: 8, vertical: 4),
-                //         onPressed: () {
-                //           isLandscape = false;
-                //
-                //           setState(() {});
-                //         },
-                //       ),
-                //       IconButton(
-                //         icon: Icon(
-                //           Icons.landscape,
-                //           color: isLandscape ? white : gray,
-                //         ).paddingSymmetric(horizontal: 8, vertical: 4),
-                //         onPressed: () {
-                //           isLandscape = true;
-                //
-                //           setState(() {});
-                //         },
-                //       ),
-                //       Slider(
-                //         activeColor: Colors.white,
-                //         inactiveColor: Colors.grey,
-                //         value: rotateAngle.toDouble(),
-                //         min: 0.0,
-                //         max: 100.0,
-                //         onChangeEnd: (v) {
-                //           rotateAngle = v.toInt();
-                //           setState(() {});
-                //         },
-                //         onChanged: (v) {
-                //           rotateAngle = v.toInt();
-                //           setState(() {});
-                //         },
-                //       ),
-                //     ],
-                //   ),
-                // ),
                 Container(
                   height: 80,
                   decoration: const BoxDecoration(

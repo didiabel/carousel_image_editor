@@ -25,39 +25,6 @@ class _TextEditorImageState extends State<TextEditorImage> {
         appBar: AppBar(
           actions: <Widget>[
             IconButton(
-              icon: Icon(Icons.abc, //TODO: change
-                  color: align == TextAlign.left
-                      ? Colors.white
-                      : Colors.white.withAlpha(80)),
-              onPressed: () {
-                setState(() {
-                  align = TextAlign.left;
-                });
-              },
-            ),
-            IconButton(
-              icon: Icon(Icons.center_focus_strong, // TODO: change
-                  color: align == TextAlign.center
-                      ? Colors.white
-                      : Colors.white.withAlpha(80)),
-              onPressed: () {
-                setState(() {
-                  align = TextAlign.center;
-                });
-              },
-            ),
-            IconButton(
-              icon: Icon(Icons.fork_right, // TODO: change
-                  color: align == TextAlign.right
-                      ? Colors.white
-                      : Colors.white.withAlpha(80)),
-              onPressed: () {
-                setState(() {
-                  align = TextAlign.right;
-                });
-              },
-            ),
-            IconButton(
               icon: const Icon(Icons.check),
               onPressed: () {
                 Navigator.pop(
