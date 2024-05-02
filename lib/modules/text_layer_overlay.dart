@@ -221,13 +221,19 @@ class _TextLayerOverlayState extends State<TextLayerOverlay> {
             Expanded(
               child: TextButton(
                 onPressed: () {
-                  removedLayers[currentIndex]!
-                      .add(layers[currentIndex]!.removeAt(widget.index));
+                  if (removedLayers[currentIndex] == null) {
+                    removedLayers[currentIndex] = [];
+                    removedLayers[currentIndex]!
+                        .add(layers[currentIndex]![widget.index]);
+                    layers[currentIndex]!.removeAt(widget.index);
+                  } else {
+                    removedLayers[currentIndex]!
+                        .add(layers[currentIndex]![widget.index]);
+                    layers[currentIndex]!.removeAt(widget.index);
+                  }
 
                   Navigator.pop(context);
                   widget.onUpdate();
-                  // back(context);
-                  // setState(() {});
                 },
                 child: Text(
                   i18n('Remove'),

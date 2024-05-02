@@ -28,6 +28,8 @@ class _TextViewState extends State<TextLayer> {
     initialSize = widget.layerData.size;
     initialRotation = widget.layerData.rotation;
 
+    final index = layers[currentIndex]!.indexOf(widget.layerData);
+    print("this is my index: $index");
     return Positioned(
       left: widget.layerData.offset.dx,
       top: widget.layerData.offset.dy,
@@ -45,7 +47,7 @@ class _TextViewState extends State<TextLayer> {
                   backgroundColor: Colors.transparent,
                   builder: (context) {
                     return TextLayerOverlay(
-                      index: layers[currentIndex]!.indexOf(widget.layerData),
+                      index: index,
                       layer: widget.layerData,
                       onUpdate: () {
                         if (widget.onUpdate != null) widget.onUpdate!();
