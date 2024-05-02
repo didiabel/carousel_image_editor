@@ -29,7 +29,7 @@ class _TextViewState extends State<TextLayer> {
     initialRotation = widget.layerData.rotation;
 
     final index = layers[currentIndex]!.indexOf(widget.layerData);
-    print("this is my index: $index");
+
     return Positioned(
       left: widget.layerData.offset.dx,
       top: widget.layerData.offset.dy,
